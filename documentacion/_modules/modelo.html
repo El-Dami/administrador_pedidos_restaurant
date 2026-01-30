@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modelo &mdash; documentación de GestorMesas - 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6fcc102b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GestorMesas
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../controlador.html">controlador module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vista.html">vista module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modelo.html">modelo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_bases.html">admin_bases module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../excepciones.html">excepciones module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../regex.html">regex module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GestorMesas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">modelo</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para modelo</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">modelo.py</span>
+<span class="sd">    </span>
+<span class="sd">        Cuenta con las clases y métodos que se ejecutan desde los *Botones* </span>
+<span class="sd">        de la interfaz gráfica.</span>
+<span class="sd">        En el módulo *modelo.py* se ejecutan las clases y métodos de administración de la </span>
+<span class="sd">        Base de Datos (del módulo *admin_bases.py*), se realizan las validaciones </span>
+<span class="sd">        de campos (del módulo *regex.py*) y las capturas de excepciones (del módulo</span>
+<span class="sd">        *excepciones.py*).</span>
+<span class="sd">    </span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">tkinter.messagebox</span> <span class="kn">import</span> <span class="n">showerror</span>
+<span class="kn">from</span> <span class="nn">tkinter.messagebox</span> <span class="kn">import</span> <span class="n">showinfo</span>
+<span class="kn">from</span> <span class="nn">tkinter.messagebox</span> <span class="kn">import</span> <span class="n">askyesno</span>
+<span class="kn">from</span> <span class="nn">tkinter.filedialog</span> <span class="kn">import</span> <span class="n">askopenfilename</span>
+<span class="kn">from</span> <span class="nn">tkinter</span> <span class="kn">import</span> <span class="n">TclError</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">vista</span>
+<span class="kn">import</span> <span class="nn">regex</span>
+<span class="kn">from</span> <span class="nn">excepciones</span> <span class="kn">import</span> <span class="n">AplicaRegistro</span>
+<span class="kn">from</span> <span class="nn">admin_bases</span> <span class="kn">import</span> <span class="n">BaseDeDatos</span>
+<span class="kn">from</span> <span class="nn">admin_bases</span> <span class="kn">import</span> <span class="n">BaseClientes</span>
+<span class="kn">from</span> <span class="nn">admin_bases</span> <span class="kn">import</span> <span class="n">BaseConsumos</span>
+
+
+<div class="viewcode-block" id="ClientesBD">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD">[documentos]</a>
+<span class="k">class</span> <span class="nc">ClientesBD</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        La Clase *ClientesBD()* cuenta con los métodos que vinculan la interfaz gráfica </span>
+<span class="sd">        con la tabla *clientes* de las base de datos *clientes_sql.db*.</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">=</span><span class="n">BaseClientes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">=</span><span class="n">BaseDeDatos</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetInterfaz</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetTree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">=</span><span class="n">regex</span><span class="o">.</span><span class="n">Validar</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="ClientesBD.alta_cliente">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.alta_cliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">alta_cliente</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nro_mesa</span><span class="p">,</span> <span class="n">cant_comensales</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Da de alta un cliente nuevo en la tabla *clientes* a partir </span>
+<span class="sd">        del ingreso obligatorio de los valores *mesa* y *comensales* de los</span>
+<span class="sd">        respectivos Entry&#39;s de la ventana principal.</span>
+<span class="sd">        </span>
+<span class="sd">        :param nro_mesa: (_int_) número entero que se ingresa en el Entry *Mesa* de la vista principal.</span>
+<span class="sd">        :param cant_comensales: (_int_): número entero que se ingresa en el Entry *Comensales* de la vista principal.</span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter - tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">id_cliente</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">get_id</span><span class="p">()</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">mesa</span><span class="o">=</span> <span class="n">nro_mesa</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="n">comensales</span><span class="o">=</span> <span class="n">cant_comensales</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            
+        <span class="k">except</span> <span class="n">TclError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Ingrese valores numéricos en los campos correspondientes&quot;</span> <span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">borra_ultimo_id</span><span class="p">()</span>
+            
+        <span class="k">else</span><span class="p">:</span>   
+            <span class="n">t</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">mesa</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">valida_mesa</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> <span class="c1">###REGEX LIMITE NUMERICO</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">crea_tabla_clientes</span><span class="p">()</span>
+                <span class="n">total</span><span class="o">=</span><span class="mi">0</span>
+                <span class="n">estado</span><span class="o">=</span> <span class="s2">&quot;ABIERTO&quot;</span>
+                <span class="n">hora_ingreso</span><span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M:%S--</span><span class="si">%d</span><span class="s2">/%m/%y&quot;</span><span class="p">)</span>
+                <span class="n">hora_egreso</span><span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="n">cliente_nuevo</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">mesa</span><span class="p">,</span> <span class="n">comensales</span><span class="p">,</span> <span class="n">estado</span><span class="p">,</span> <span class="n">total</span><span class="p">,</span> <span class="n">hora_ingreso</span><span class="p">,</span> <span class="n">hora_egreso</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">alta_sql</span><span class="p">(</span><span class="n">cliente_nuevo</span><span class="p">)</span> <span class="c1">##</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_entrys_raiz</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
+                
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CLIENTE AGREGADO =================&gt; ID  &quot;</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">borra_ultimo_id</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="ClientesBD.cierra">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.cierra">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cierra</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *estado* del cliente seleccionado en la tabla *clientes*.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter - tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        </span>
+<span class="sd">        .. note::</span>
+<span class="sd">            Una vez cerrada la mesa ya no se podrá borrar de la base de datos ni modificar ningún valor.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span> 
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cierra</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+            
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente a cerrar&quot;</span> <span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cierra</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">cierra_sql</span><span class="p">(</span><span class="n">id_cierra</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span><span class="n">id_cierra</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cierra</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_entrys_raiz</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
+                
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;___ SE CERRÓ LA MESA DEL CLIENTE  &quot;</span><span class="p">,</span><span class="n">id_cierra</span><span class="p">,</span> <span class="s2">&quot;___&quot;</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ClientesBD.borra_cliente">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.borra_cliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borra_cliente</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">tree_consumos</span><span class="p">,</span> <span class="n">root2</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra al cliente seleccionado y sus consumos de las tablas *clientes* y *consumos*.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree_consumos: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ventana</span><span class="o">=</span> <span class="n">root2</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">listado_consumos</span><span class="o">=</span> <span class="n">tree_consumos</span>
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        
+        <span class="n">id_borra</span><span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">]</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_borra</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente que desea borrar&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_borra</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">borra_cliente_sql</span><span class="p">(</span><span class="n">id_borra</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span> 
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_entrys_consulta</span><span class="p">(</span><span class="n">ventana</span><span class="p">)</span></div>
+
+                    
+                <span class="c1">#print(&quot;_______________ SE BORRÓ EL CLIENTE &quot;, id_borra, &quot;_________________&quot;)</span>
+    
+<div class="viewcode-block" id="ClientesBD.consulta_cliente">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.consulta_cliente">[documentos]</a>
+    <span class="k">def</span> <span class="nf">consulta_cliente</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">tree_consumos</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Muestra los datos del cliente seleccionado en la ventana secundaria *Consultas*.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree_consumos: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado_consumos</span><span class="o">=</span> <span class="n">tree_consumos</span>                   
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span> 
+        <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+            
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente que desea consular&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">principal</span><span class="o">.</span><span class="n">var_total_pagar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_consumos</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ClientesBD.agrega_comensal">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.agrega_comensal">[documentos]</a>
+    <span class="k">def</span> <span class="nf">agrega_comensal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tree</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">tree2</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        Modifica el atributo *cantidad de comensales* del cliente seleccionado en la tabla</span>
+<span class="sd">        *clientes* y lo muestra en los entrys y trees de la interfaz gráfica.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree2: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        <span class="n">listado_consumos</span><span class="o">=</span><span class="n">tree2</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>    
+        <span class="n">operacion</span><span class="o">=</span> <span class="s2">&quot;suma&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente que desea modificar&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">modifica_comensal_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span><span class="n">operacion</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_consumos</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ClientesBD.quita_comensal">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.quita_comensal">[documentos]</a>
+    <span class="k">def</span> <span class="nf">quita_comensal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tree</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">tree2</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *cantidad de comensales* del cliente seleccionado en la tabla *clientes*.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree2: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        <span class="n">listado_consumos</span><span class="o">=</span><span class="n">tree2</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>    
+        <span class="n">operacion</span><span class="o">=</span> <span class="s2">&quot;resta&quot;</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente que desea modificar&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">modifica_comensal_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span><span class="n">operacion</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_consumos</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ClientesBD.cambia_mesa">
+<a class="viewcode-back" href="../modelo.html#modelo.ClientesBD.cambia_mesa">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cambia_mesa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">consul_mesa</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">tree2</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *cantidad de comensales* del cliente seleccionado en la tabla</span>
+<span class="sd">        *clientes*.</span>
+<span class="sd">        </span>
+<span class="sd">        :param consul_mesa: (_IntVar_) variable int de Tkinter ingresada en el Entry *Comensales* de la ventana secundaria.</span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree2: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">listado_consumos</span><span class="o">=</span><span class="n">tree2</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">nueva_mesa</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">consul_mesa</span><span class="o">.</span><span class="n">get</span><span class="p">())</span> <span class="c1">#TclError</span>
+            <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+            <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>    
+            <span class="n">id_cliente</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>   <span class="c1">#ValueError</span>
+            
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el cliente de la mesa que desea modificar&quot;</span> <span class="p">)</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+                
+            
+        <span class="k">except</span> <span class="n">TclError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Ingrese valores numéricos en los campos correspondientes&quot;</span> <span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">modifica_mesa_sql</span><span class="p">(</span><span class="n">nueva_mesa</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_consumos</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span></div>
+</div>
+
+        
+<div class="viewcode-block" id="ConsumosBD">
+<a class="viewcode-back" href="../modelo.html#modelo.ConsumosBD">[documentos]</a>
+<span class="k">class</span> <span class="nc">ConsumosBD</span><span class="p">():</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La Clase *ConsumossBD()* cuenta con los métodos que vinculan la interfaz gráfica </span>
+<span class="sd">    con la tabla *consumos* de la base de datos *clientes_sql.db* a partir del ingreso obligatorio de </span>
+<span class="sd">    los valores *producto* y *precio* de los respectivos Entry&#39;s de la ventana principal</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_consumos</span><span class="o">=</span><span class="n">BaseConsumos</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">=</span><span class="n">BaseClientes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">=</span><span class="n">BaseDeDatos</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetInterfaz</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetTree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">=</span><span class="n">regex</span><span class="o">.</span><span class="n">Validar</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="ConsumosBD.agrega_pedido">
+<a class="viewcode-back" href="../modelo.html#modelo.ConsumosBD.agrega_pedido">[documentos]</a>
+    <span class="k">def</span> <span class="nf">agrega_pedido</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">tree</span><span class="p">,</span> <span class="n">tree_consumos</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agrega un pedido a la tabla *consumos* a partir de los datos ingresados en los Entry&#39;s</span>
+<span class="sd">        *producto* y *precio* de la ventana secundaria &quot;Consultas&quot;.</span>
+
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree_consumos: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">listado_consumos</span><span class="o">=</span> <span class="n">tree_consumos</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">)</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        <span class="n">principal</span><span class="o">.</span><span class="n">var_total_pagar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">crea_tabla_consumos</span><span class="p">()</span>
+        
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span>
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span> 
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione un cliente para agregar pedido&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">producto</span><span class="o">=</span> <span class="n">principal</span><span class="o">.</span><span class="n">var_producto</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+                <span class="n">precio</span><span class="o">=</span> <span class="n">principal</span><span class="o">.</span><span class="n">var_precio</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+            <span class="k">except</span> <span class="n">TclError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Ingrese valores es los campos correspondientes&quot;</span> <span class="p">)</span>
+                <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+                <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">validacion</span><span class="o">.</span><span class="n">valida_producto</span><span class="p">(</span><span class="n">producto</span><span class="p">)</span><span class="o">==</span> <span class="kc">True</span><span class="p">:</span><span class="c1">##REGEX PRODUCTO</span>
+                    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span> 
+                        <span class="bp">self</span><span class="o">.</span><span class="n">base_consumos</span><span class="o">.</span><span class="n">alta_compra_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">principal</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_consumos</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_compra</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="ConsumosBD.quita_pedido">
+<a class="viewcode-back" href="../modelo.html#modelo.ConsumosBD.quita_pedido">[documentos]</a>
+    <span class="k">def</span> <span class="nf">quita_pedido</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tree_consumos</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra el pedido seleccionado del tree *listado_consumos* de la tabla *consumos*.</span>
+
+<span class="sd">        :param tree_consumos: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado_consumos</span><span class="o">=</span> <span class="n">tree_consumos</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        
+        <span class="n">puntero</span><span class="o">=</span> <span class="n">listado_consumos</span><span class="o">.</span><span class="n">focus</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">=</span> <span class="n">listado_consumos</span><span class="o">.</span><span class="n">item</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;text&quot;</span><span class="p">])</span> 
+            
+        <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>
+            <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Seleccione el pedido que desea eliminar&quot;</span><span class="p">)</span>
+            <span class="n">motivo</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()</span>
+            <span class="n">registrar</span><span class="o">=</span> <span class="n">AplicaRegistro</span><span class="p">(</span><span class="n">motivo</span><span class="p">,</span> <span class="vm">__name__</span><span class="p">,</span><span class="n">t</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">estado_mesa_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">producto</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">precio</span><span class="o">=</span><span class="n">w</span><span class="p">[</span><span class="s2">&quot;values&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">base_consumos</span><span class="o">.</span><span class="n">baja_compra_sql</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">principal</span><span class="p">)</span>
+                
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">borra_puntero</span><span class="p">(</span><span class="n">listado_consumos</span><span class="p">,</span> <span class="n">puntero</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_compra</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">setear_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span></div>
+</div>
+
+
+<div class="viewcode-block" id="MuestraClientesBD">
+<a class="viewcode-back" href="../modelo.html#modelo.MuestraClientesBD">[documentos]</a>
+<span class="k">class</span> <span class="nc">MuestraClientesBD</span><span class="p">():</span>
+<span class="w">    </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase *MuestraClientes()* presenta en el tree *listado* los clientes que se encuentran registrados en </span>
+<span class="sd">    la tabla *clienstes*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetInterfaz</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">=</span><span class="n">vista</span><span class="o">.</span><span class="n">SetTree</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">=</span><span class="n">BaseClientes</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">=</span><span class="n">BaseDeDatos</span><span class="p">()</span>
+    
+<div class="viewcode-block" id="MuestraClientesBD.muestra_clientes_activos">
+<a class="viewcode-back" href="../modelo.html#modelo.MuestraClientesBD.muestra_clientes_activos">[documentos]</a>
+    <span class="k">def</span> <span class="nf">muestra_clientes_activos</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span> <span class="n">tree</span><span class="p">,</span> <span class="n">tree2</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Muestra en el Tree de la página principal todos los clientes de la tabla *clientes* cuyo atributo *estado* sea &quot;ABIERTO&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree2: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">listado_consumos</span><span class="o">=</span><span class="n">tree2</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">tree1</span><span class="o">=</span><span class="n">listado</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">tree1</span><span class="o">=</span><span class="n">listado_consumos</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">crea_tabla_clientes</span><span class="p">()</span>
+        <span class="n">estado</span><span class="o">=</span> <span class="s2">&quot;ABIERTO&quot;</span>
+        <span class="n">clientes</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">muestra_clientes_sql</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">cliente</span> <span class="ow">in</span> <span class="n">clientes</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="MuestraClientesBD.muestra_clientes_total">
+<a class="viewcode-back" href="../modelo.html#modelo.MuestraClientesBD.muestra_clientes_total">[documentos]</a>
+    <span class="k">def</span> <span class="nf">muestra_clientes_total</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">,</span><span class="n">tree</span><span class="p">,</span> <span class="n">tree2</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Muestra todos clientes de la tabla *clientes* en el Tree de la página principal.</span>
+<span class="sd">        </span>
+<span class="sd">        :param tree: (_Tree_) objeto Tree de Tkinter _ tree *listado* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param tree2: (_Tree_) objeto Tree de Tkinter _ tree *listado_consumos* de *VentanaPrincipal()* del módulo *vista.py*.</span>
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">listado</span><span class="o">=</span> <span class="n">tree</span>
+        <span class="n">listado_consumos</span><span class="o">=</span><span class="n">tree2</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">listado</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">limpiar_tree</span><span class="p">(</span><span class="n">tree1</span><span class="o">=</span><span class="n">listado_consumos</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_interfaz</span><span class="o">.</span><span class="n">limpiar_entrys_consulta</span><span class="p">(</span><span class="n">principal</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_bases</span><span class="o">.</span><span class="n">crea_tabla_clientes</span><span class="p">()</span>
+        
+        <span class="n">estado</span><span class="o">=</span> <span class="s2">&quot;TOTAL&quot;</span>
+        <span class="n">clientes</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">base_clientes</span><span class="o">.</span><span class="n">muestra_clientes_sql</span><span class="p">(</span><span class="n">estado</span><span class="p">)</span>
+        
+        <span class="k">for</span> <span class="n">cliente</span> <span class="ow">in</span> <span class="n">clientes</span><span class="p">:</span>
+            <span class="n">id_cliente</span><span class="o">=</span><span class="n">cliente</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_tree</span><span class="o">.</span><span class="n">actualiza_tree_clientes</span><span class="p">(</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">listado</span><span class="p">)</span></div>
+</div>
+
+    
+<div class="viewcode-block" id="ProgramaAdmin">
+<a class="viewcode-back" href="../modelo.html#modelo.ProgramaAdmin">[documentos]</a>
+<span class="k">class</span> <span class="nc">ProgramaAdmin</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Clase en construcción.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        
+        <span class="k">pass</span>
+    
+<div class="viewcode-block" id="ProgramaAdmin.salir_programa">
+<a class="viewcode-back" href="../modelo.html#modelo.ProgramaAdmin.salir_programa">[documentos]</a>
+    <span class="k">def</span> <span class="nf">salir_programa</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Salir del programa.</span>
+
+<span class="sd">        :param root: (_root_) objeto root Tkinter de VistaPrincipal().</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">principal</span><span class="o">=</span> <span class="n">root</span>
+        <span class="k">if</span> <span class="n">askyesno</span><span class="p">(</span><span class="s2">&quot;Usted está saliendo del programa&quot;</span><span class="p">,</span><span class="s2">&quot;¿Desea salir?&quot;</span><span class="p">):</span>
+            <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;Si&quot;</span><span class="p">,</span> <span class="s2">&quot;¡Hasta la próxima!&quot;</span><span class="p">)</span>
+            <span class="n">principal</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">showinfo</span><span class="p">(</span><span class="s2">&quot;No&quot;</span><span class="p">,</span> <span class="s2">&quot;Haga click para volver a la página principal&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProgramaAdmin.guardar">
+<a class="viewcode-back" href="../modelo.html#modelo.ProgramaAdmin.guardar">[documentos]</a>
+    <span class="k">def</span> <span class="nf">guardar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Prueba de boton &quot;Guardar&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ruta_guardar</span><span class="o">=</span> <span class="n">askopenfilename</span><span class="p">()</span></div>
+</div>
+
+    
+    
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, “el_dami”.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

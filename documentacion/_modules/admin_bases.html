@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>admin_bases &mdash; documentación de GestorMesas - 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js?v=5d32c60e"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="../_static/documentation_options.js?v=6fcc102b"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="../_static/translations.js?v=efdbd0b9"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="../genindex.html" />
+    <link rel="search" title="Búsqueda" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            GestorMesas
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../controlador.html">controlador module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vista.html">vista module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modelo.html">modelo module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../admin_bases.html">admin_bases module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../excepciones.html">excepciones module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../regex.html">regex module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">GestorMesas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Código de módulo</a></li>
+      <li class="breadcrumb-item active">admin_bases</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Código fuente para admin_bases</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    admin_bases.py</span>
+<span class="sd">        </span>
+<span class="sd">        Contiene todas las clases y métodos que crean y administran las bases de datos.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">tkinter.messagebox</span> <span class="kn">import</span> <span class="n">showerror</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+
+<div class="viewcode-block" id="Conexion">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.Conexion">[documentos]</a>
+<span class="k">class</span> <span class="nc">Conexion</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase *Conexion()* crea y se conecta con la base de datos &quot;clientes_sql.db&quot;.</span>
+<span class="sd">    Todas las clases del módulo &#39;admin_bases.py&#39; heredan de la clase *Conexion()*</span>
+<span class="sd">    </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+    
+<div class="viewcode-block" id="Conexion.conexion_bd">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.Conexion.conexion_bd">[documentos]</a>
+    <span class="k">def</span> <span class="nf">conexion_bd</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Genera la conexión sqlite3.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns: objeto *connect()* de sqlite3.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&quot;clientes_sql.db&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">con</span>    </div>
+</div>
+
+
+<div class="viewcode-block" id="BaseDeDatos">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos">[documentos]</a>
+<span class="k">class</span> <span class="nc">BaseDeDatos</span><span class="p">(</span><span class="n">Conexion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase *BaseDeDatos()* crea las tablas sqlite3 con las que trabajará la aplicación.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+    
+        <span class="k">pass</span>
+    
+<div class="viewcode-block" id="BaseDeDatos.crea_tabla_id">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos.crea_tabla_id">[documentos]</a>
+    <span class="k">def</span> <span class="nf">crea_tabla_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea la tabla &quot;id_base&quot; que proporcionará los números de ID para la tabla &quot;clientes&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS id_base</span>
+<span class="s2">                (id INT NOT NULL)&quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseDeDatos.get_id">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos.get_id">[documentos]</a>
+    <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Proporciona un número de ID autoincrementable, lo almacena en la tabla &quot;id_base&quot; y lo retorna para ser utilizado </span>
+<span class="sd">        como *PRIMARY KEY* en la tabla &quot;clientes&quot;.</span>
+
+<span class="sd">        :returns id: (_int_) integer para ID de la tabla &quot;clientes&quot;.</span>
+<span class="sd">            </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_tabla_id</span><span class="p">()</span>
+        <span class="n">sql</span><span class="o">=</span> <span class="s2">&quot;SELECT MAX (id) FROM id_base;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">mi_id</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="n">mi_id</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">tt</span><span class="o">==</span><span class="p">(</span><span class="kc">None</span><span class="p">,):</span>
+                <span class="n">uno</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nueva base id_clientes&quot;</span><span class="p">)</span>
+                <span class="n">sql_id</span><span class="o">=</span> <span class="s2">&quot;INSERT INTO ID_Base(id) VALUES( ?)&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql_id</span><span class="p">,</span> <span class="n">uno</span><span class="p">)</span>
+                <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="k">return</span> <span class="mi">1</span>
+            <span class="k">else</span><span class="p">:</span>    
+                <span class="n">ultimo_id</span><span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">ultimo_id</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">ultimo_id</span><span class="p">,)</span>
+                <span class="n">sql2</span><span class="o">=</span> <span class="s2">&quot;INSERT INTO ID_Base(id) VALUES(?)&quot;</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+                <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">ultimo_id</span></div>
+
+    
+<div class="viewcode-block" id="BaseDeDatos.borra_ultimo_id">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos.borra_ultimo_id">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borra_ultimo_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra el último ingreso de la tabla &quot;id_base&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">crea_tabla_id</span><span class="p">()</span>
+        <span class="n">sql</span><span class="o">=</span> <span class="s2">&quot;SELECT MAX (id) FROM id_base;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">mi_id</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        
+        <span class="k">for</span> <span class="n">tt</span> <span class="ow">in</span> <span class="n">mi_id</span><span class="p">:</span>
+            <span class="n">ultimo_id</span><span class="o">=</span> <span class="n">tt</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">ultimo_id</span><span class="p">,)</span>
+            <span class="n">sql2</span><span class="o">=</span> <span class="s2">&quot;DELETE from id_base WHERE id = ?;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseDeDatos.crea_tabla_clientes">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos.crea_tabla_clientes">[documentos]</a>
+    <span class="k">def</span> <span class="nf">crea_tabla_clientes</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea la tabla &quot;clientes&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS clientes</span>
+<span class="s2">                (id INTEGER PRIMARY KEY,</span>
+<span class="s2">                n_mesa INT NOT NULL, </span>
+<span class="s2">                cant_comensales INTEGER NOT NULL, </span>
+<span class="s2">                estado TEXT,</span>
+<span class="s2">                total REAL NULL, </span>
+<span class="s2">                hora_ingreso REAL, </span>
+<span class="s2">                hora_egreso REAL NULL</span>
+<span class="s2">                )</span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BaseDeDatos.crea_tabla_consumos">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseDeDatos.crea_tabla_consumos">[documentos]</a>
+    <span class="k">def</span> <span class="nf">crea_tabla_consumos</span><span class="p">(</span><span class="bp">self</span><span class="p">,):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Crea la tabla &quot;consumos&quot;.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">con</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;CREATE TABLE IF NOT EXISTS consumos</span>
+<span class="s2">                (compra int,</span>
+<span class="s2">                producto TEXT,</span>
+<span class="s2">                precio REAL, </span>
+<span class="s2">                cliente INT,</span>
+<span class="s2">                FOREIGN KEY (cliente) REFERENCES clientes(id))</span>
+<span class="s2">                </span>
+<span class="s2">        &quot;&quot;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+</div>
+
+
+<div class="viewcode-block" id="BaseClientes">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes">[documentos]</a>
+<span class="k">class</span> <span class="nc">BaseClientes</span><span class="p">(</span><span class="n">Conexion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase *BaseClientes()* cuenta con los métodos que brindan con las directrices necesarias</span>
+<span class="sd">    para administrar la información de la tabla &quot;clientes&quot;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="kc">None</span><span class="p">:</span>
+        <span class="k">pass</span>
+    
+<div class="viewcode-block" id="BaseClientes.alta_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.alta_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">alta_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agrega un nuevo cliente en la tabla &quot;clientes&quot;.</span>
+
+<span class="sd">        :param cliente: (_tuple_) datos proporcionados desde el módulo *modelo.py* para la alta del cliente.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">data</span><span class="o">=</span> <span class="n">cliente</span>
+        <span class="n">con</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">=</span><span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">sql</span><span class="o">=</span><span class="s2">&quot;INSERT INTO clientes(id, n_mesa, cant_comensales, estado, total, hora_ingreso, hora_egreso) VALUES( ?, ?, ?, ?, ?, ?, ?)&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.cierra_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.cierra_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">cierra_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span> 
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *estado* del cliente seleccionado en la tabla &quot;clientes&quot; y agrega horario de cierre</span>
+<span class="sd">        al atributo *hora_egreso* del cliente seleccionado.</span>
+
+<span class="sd">        :param id_cliente: (_int_) id de cliente.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">mi_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span>
+        <span class="n">h_egreso</span><span class="o">=</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%H:%M:%S--</span><span class="si">%d</span><span class="s2">/%m/%y&quot;</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;CERRADO&quot;</span><span class="p">,</span> <span class="n">h_egreso</span><span class="p">,</span> <span class="n">mi_id</span><span class="p">)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;UPDATE clientes SET estado=?, hora_egreso=? WHERE id=?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.estado_mesa_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.estado_mesa_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">estado_mesa_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Proporciona el atributo *estado* del cliente seleccionado.</span>
+
+<span class="sd">        :param id_cliente: (_int_): id del cliente seleccionado</span>
+
+<span class="sd">        :returns True: (_boolean_) si la mesa del cliente seleccionado está &quot;ABIERTA&quot;</span>
+<span class="sd">        </span>
+<span class="sd">        .. note::</span>
+<span class="sd">            Si el estado de la mesa del cliente seleccionado es &quot;CERRADA&quot;, el método retorna</span>
+<span class="sd">            una ventana de error.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">id_cliente</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT estado FROM clientes WHERE id =?;&quot;</span>
+        
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">estado</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            
+        <span class="k">for</span> <span class="n">anterior</span> <span class="ow">in</span> <span class="n">estado</span><span class="p">:</span>
+            <span class="n">estado_final</span><span class="o">=</span><span class="n">anterior</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            
+            <span class="k">if</span> <span class="n">estado_final</span><span class="o">==</span><span class="s2">&quot;ABIERTO&quot;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">showerror</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;La mesa seleccionada está cerrada y no se puede modificar&quot;</span> <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BaseClientes.borra_cliente_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.borra_cliente_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borra_cliente_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra al cliente seleccionado de la tabla &quot;clientes&quot;.</span>
+
+<span class="sd">        :param id_cliente (_int_): id del cliente seleccionado.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mi_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span>
+        
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            
+        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_id</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;DELETE from clientes WHERE id = ?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">borra_consumos_cliente_borrado_sql</span><span class="p">(</span><span class="n">mi_id</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.borra_consumos_cliente_borrado_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.borra_consumos_cliente_borrado_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">borra_consumos_cliente_borrado_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra de la tabla &quot;consumos&quot; los datos correspondientes al cliente borrado con el método *borra_cliente_sql()*.</span>
+
+<span class="sd">        :param id_cliente (_int_): id del cliente seleccionado.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            
+        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;DELETE from consumos WHERE cliente = ?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+        
+    
+<div class="viewcode-block" id="BaseClientes.modifica_mesa_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.modifica_mesa_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modifica_mesa_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nueva_mesa</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *n_mesa* del cliente seleccionado en la tabla &quot;clientes&quot;.</span>
+
+<span class="sd">        :param nueva_mesa: (_int_): número de mesa proporcionado por el módulo *modelo.py*.</span>
+<span class="sd">        :param id_cliente: (_int_): ID del cliente seleccionado.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">con2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con2</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">data2</span><span class="o">=</span><span class="p">(</span><span class="n">nueva_mesa</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+        <span class="n">sql2</span> <span class="o">=</span> <span class="s2">&quot;UPDATE Clientes SET n_mesa=? WHERE id=?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+        <span class="n">con2</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BaseClientes.modifica_comensal_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.modifica_comensal_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">modifica_comensal_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">operacion</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Modifica el atributo *n_comensales* del cliente seleccionado en la tabla &quot;clientes&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del cliente seleccionado</span>
+<span class="sd">        :param operacion: (_str_) &quot;suma&quot; o &quot;resta&quot; según se vaya a agregar o quitar un comensal.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT cant_comensales FROM clientes WHERE id =?;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">comensales</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            
+        <span class="k">for</span> <span class="n">comensal</span> <span class="ow">in</span> <span class="n">comensales</span><span class="p">:</span>
+            <span class="n">total_comens</span><span class="o">=</span><span class="n">comensal</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">operacion</span> <span class="o">==</span> <span class="s2">&quot;suma&quot;</span><span class="p">:</span>
+                <span class="n">total_comens</span><span class="o">+=</span><span class="mi">1</span>         
+            <span class="k">elif</span> <span class="n">operacion</span> <span class="o">==</span> <span class="s2">&quot;resta&quot;</span><span class="p">:</span>
+                <span class="n">total_comens</span><span class="o">-=</span><span class="mi">1</span>
+                
+            <span class="n">con2</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con2</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">data2</span><span class="o">=</span><span class="p">(</span><span class="n">total_comens</span><span class="p">,</span><span class="n">id_cliente</span><span class="p">)</span>
+            <span class="n">sql2</span> <span class="o">=</span> <span class="s2">&quot;UPDATE clientes SET cant_comensales=? WHERE id=?;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+            <span class="n">con2</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BaseClientes.muestra_clientes_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.muestra_clientes_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">muestra_clientes_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">estado1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtiene de la tabla &quot;clientes&quot; un listado de clientes para ser mostrado en el Tree de la ventana principal. </span>
+<span class="sd">        </span>
+<span class="sd">        :param estado1: (_str_): &quot;ABIERTO&quot; o &quot;TOTAL&quot; según se muestren los clientes activos o todos los clientes.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns clientes_abiertos o clientes_total: (_list_) retorna el listado de clientes activos o la totalidad de los clientes dependiendo del parámetro brindado desde el módulo *modelo.py*.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">estado1</span> <span class="o">==</span> <span class="s2">&quot;ABIERTO&quot;</span><span class="p">:</span>
+        
+            <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">estado1</span><span class="p">,)</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Clientes WHERE Estado =?;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+            <span class="n">clientes_abiertos</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CLIENTES ABIERTOS === &quot;</span><span class="p">,</span> <span class="n">clientes_abiertos</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">clientes_abiertos</span>
+            
+        <span class="k">elif</span> <span class="n">estado1</span> <span class="o">==</span> <span class="s2">&quot;TOTAL&quot;</span><span class="p">:</span>
+            <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT * FROM Clientes;&quot;</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">)</span>
+            <span class="n">clientes_total</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;CLIENTES TOTALES === &quot;</span><span class="p">,</span> <span class="n">clientes_total</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">clientes_total</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.selecc_para_entrys_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.selecc_para_entrys_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selecc_para_entrys_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtiene y retorna de la tabla &quot;clientes&quot; los datos de un cliente requeridos para </span>
+<span class="sd">        presentar en los Entrys de la ventana secundaria.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del cliente seleccionado.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns clientes_actualiza: (_list_) Listado de atributos del cliente seleccionado para mostrar en los Entrys de la ventana secundaria.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT n_mesa, cant_comensales, total, hora_ingreso, hora_egreso FROM clientes WHERE id =?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">cliente_actualiza</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cliente_actualiza</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.selecc_tree_clientes_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.selecc_tree_clientes_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selecc_tree_clientes_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtiene y retorna de la tabla &quot;clientes&quot; los datos requeridos de un cliente para </span>
+<span class="sd">        presentar en el tree *listado* de la ventana principal.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del clientte seleccionado.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns cliente_seleccionado: (_list_) listado de atributos del cliente seleccionado que serán presentados en el Tree de la ventana principal.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT n_mesa, cant_comensales, estado FROM clientes WHERE id =?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">cliente_seleccionado</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cliente_seleccionado</span></div>
+
+    
+<div class="viewcode-block" id="BaseClientes.selecc_tree_consumos_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseClientes.selecc_tree_consumos_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">selecc_tree_consumos_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Obtiene y retorna de la tabla &quot;clientes&quot; los datos requeridos de un cliente para </span>
+<span class="sd">        presentar en el tree *listado_consumos* de la ventana secundaria.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del clientte seleccionado.</span>
+<span class="sd">        </span>
+<span class="sd">        :returns cliente_seleccionado: (_list_) listado de atributos del cliente seleccionado que serán presentados en el Tree de la ventana principal.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT producto, precio FROM consumos WHERE cliente =?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">cliente_seleccionado</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cliente_seleccionado</span></div>
+</div>
+
+    
+<div class="viewcode-block" id="BaseConsumos">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseConsumos">[documentos]</a>
+<span class="k">class</span> <span class="nc">BaseConsumos</span><span class="p">(</span><span class="n">Conexion</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    La clase *BaseConsumos()* cuenta con los métodos que brindan con las directrices necesarias </span>
+<span class="sd">    para administrar la información de la base de datos &quot;consumos&quot;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">est_mesa</span><span class="o">=</span><span class="n">BaseClientes</span><span class="p">()</span>
+        <span class="c1">#self.validacion=regex.Validar()</span>
+    
+<div class="viewcode-block" id="BaseConsumos.suma_total_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseConsumos.suma_total_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">suma_total_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_client</span><span class="p">,</span> <span class="n">nuevo_precio</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actualiza en la tabla &quot;clientes&quot; el atributo *total* del cliente seleccionado al agregar un pedido.</span>
+
+<span class="sd">        :param id_client: (_int_) ID del cliente seleccionado.</span>
+<span class="sd">        :param nuevo_precio: (_float_) precio del pedido agregado.</span>
+<span class="sd">        :param root: (_root_) objeto root de Tkinter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        <span class="n">id_cliente</span><span class="o">=</span> <span class="n">id_client</span>
+        <span class="n">precio</span><span class="o">=</span><span class="n">nuevo_precio</span>
+        
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT total FROM clientes WHERE id =?;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">total</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">anterior</span> <span class="ow">in</span> <span class="n">total</span><span class="p">:</span>
+            <span class="n">total_ul</span><span class="o">=</span><span class="n">anterior</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">total_ul</span><span class="o">+=</span><span class="n">precio</span>
+            <span class="n">principal</span><span class="o">.</span><span class="n">var_total_pagar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">total_ul</span><span class="p">)</span>
+            
+            <span class="n">data2</span><span class="o">=</span><span class="p">(</span><span class="n">total_ul</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+            <span class="n">sql2</span><span class="o">=</span><span class="s2">&quot;UPDATE clientes SET total=? WHERE id=?;&quot;</span>
+            <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseConsumos.resta_total_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseConsumos.resta_total_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">resta_total_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_client</span><span class="p">,</span> <span class="n">nuevo_precio</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Actualiza en la tabla &quot;clientes&quot; el atributo *total* del cliente seleccionado al borrar un pedido.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_client: (_int_) ID del cliente seleccionado.</span>
+<span class="sd">        :param nuevo_precio: (_float_) precio del pedido borrado.</span>
+<span class="sd">        :param root: (_root_) objeto root de Tkinter.</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        <span class="n">id_cliente</span><span class="o">=</span> <span class="n">id_client</span>
+        <span class="n">precio</span><span class="o">=</span><span class="n">nuevo_precio</span>
+        
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">,)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;SELECT total FROM clientes WHERE id =?;&quot;</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="n">total</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">anterior</span> <span class="ow">in</span> <span class="n">total</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;anterior o &quot;</span><span class="p">,</span> <span class="n">anterior</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">total_ul</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">anterior</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="n">total_ul</span><span class="o">-=</span><span class="n">precio</span>
+            <span class="n">principal</span><span class="o">.</span><span class="n">var_total_pagar</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">total_ul</span><span class="p">)</span>
+                
+            <span class="n">data2</span><span class="o">=</span><span class="p">(</span><span class="n">total_ul</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">)</span>
+            <span class="n">sql2</span><span class="o">=</span><span class="s2">&quot;UPDATE clientes SET total=? WHERE id=?;&quot;</span>
+            <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql2</span><span class="p">,</span> <span class="n">data2</span><span class="p">)</span>
+            <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span></div>
+
+    
+<div class="viewcode-block" id="BaseConsumos.alta_compra_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseConsumos.alta_compra_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">alta_compra_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Agrega un pedido a la tabla &quot;consumos&quot; y lo asocia al cliente seleccionado mediante su ID.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del cliente seleccionado.</span>
+<span class="sd">        :param producto: (_str_) nombre del producto.</span>
+<span class="sd">        :param precio: (_float_) precio del producto.</span>
+<span class="sd">        :param root: (_root_)  objeto root de Tkinter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        <span class="n">cliente</span><span class="o">=</span> <span class="n">id_cliente</span>
+        
+        <span class="n">data</span><span class="o">=</span><span class="p">(</span><span class="n">producto</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">cliente</span><span class="p">)</span>
+        <span class="n">sql</span><span class="o">=</span><span class="s2">&quot;INSERT INTO consumos(producto, precio, cliente) VALUES( ?, ?, ?)&quot;</span>
+        
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">suma_total_sql</span><span class="p">(</span><span class="n">cliente</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">principal</span><span class="p">)</span></div>
+
+    
+<div class="viewcode-block" id="BaseConsumos.baja_compra_sql">
+<a class="viewcode-back" href="../admin_bases.html#admin_bases.BaseConsumos.baja_compra_sql">[documentos]</a>
+    <span class="k">def</span> <span class="nf">baja_compra_sql</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">id_cliente</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">precio</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Borra un pedido a la tabla &quot;consumos&quot;.</span>
+<span class="sd">        </span>
+<span class="sd">        :param id_cliente: (_int_) ID del cliente seleccionado.</span>
+<span class="sd">        :param producto: (_str_) nombre del producto.</span>
+<span class="sd">        :param precio: (_float_) precio del producto.</span>
+<span class="sd">        :param root: (_root_)  objeto root de Tkinter.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">principal</span><span class="o">=</span><span class="n">root</span>
+        <span class="n">con</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">conexion_bd</span><span class="p">()</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="n">mi_id</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">id_cliente</span><span class="p">)</span>
+        <span class="n">prod</span><span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">producto</span><span class="p">)</span>
+        <span class="n">prec</span><span class="o">=</span><span class="nb">float</span><span class="p">(</span><span class="n">precio</span><span class="p">)</span>
+        
+        
+        <span class="n">data</span> <span class="o">=</span> <span class="p">(</span><span class="n">mi_id</span><span class="p">,</span> <span class="n">prod</span><span class="p">,</span> <span class="n">prec</span><span class="p">)</span>
+        <span class="n">sql</span> <span class="o">=</span> <span class="s2">&quot;DELETE from consumos WHERE cliente = ? AND producto = ? AND precio = ?;&quot;</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sql</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="n">con</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+            
+        <span class="bp">self</span><span class="o">.</span><span class="n">resta_total_sql</span><span class="p">(</span><span class="n">mi_id</span><span class="p">,</span> <span class="n">prec</span><span class="p">,</span> <span class="n">principal</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, “el_dami”.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

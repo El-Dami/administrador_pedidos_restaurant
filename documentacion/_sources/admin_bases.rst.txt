@@ -1,0 +1,7 @@
+admin\_bases module
+===================
+
+.. automodule:: admin_bases
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>admin_bases module &mdash; documentación de GestorMesas - 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6fcc102b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=efdbd0b9"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="excepciones module" href="excepciones.html" />
+    <link rel="prev" title="modelo module" href="modelo.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GestorMesas
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controlador.html">controlador module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vista.html">vista module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelo.html">modelo module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">admin_bases module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#admin_bases.BaseClientes"><code class="docutils literal notranslate"><span class="pre">BaseClientes</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.alta_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.alta_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.borra_cliente_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.borra_cliente_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.borra_consumos_cliente_borrado_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.borra_consumos_cliente_borrado_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.cierra_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.cierra_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.estado_mesa_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.estado_mesa_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.modifica_comensal_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.modifica_comensal_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.modifica_mesa_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.modifica_mesa_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.muestra_clientes_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.muestra_clientes_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.selecc_para_entrys_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.selecc_para_entrys_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.selecc_tree_clientes_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.selecc_tree_clientes_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseClientes.selecc_tree_consumos_sql"><code class="docutils literal notranslate"><span class="pre">BaseClientes.selecc_tree_consumos_sql()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#admin_bases.BaseConsumos"><code class="docutils literal notranslate"><span class="pre">BaseConsumos</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseConsumos.alta_compra_sql"><code class="docutils literal notranslate"><span class="pre">BaseConsumos.alta_compra_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseConsumos.baja_compra_sql"><code class="docutils literal notranslate"><span class="pre">BaseConsumos.baja_compra_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseConsumos.resta_total_sql"><code class="docutils literal notranslate"><span class="pre">BaseConsumos.resta_total_sql()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseConsumos.suma_total_sql"><code class="docutils literal notranslate"><span class="pre">BaseConsumos.suma_total_sql()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#admin_bases.BaseDeDatos"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseDeDatos.borra_ultimo_id"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos.borra_ultimo_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseDeDatos.crea_tabla_clientes"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos.crea_tabla_clientes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseDeDatos.crea_tabla_consumos"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos.crea_tabla_consumos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseDeDatos.crea_tabla_id"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos.crea_tabla_id()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.BaseDeDatos.get_id"><code class="docutils literal notranslate"><span class="pre">BaseDeDatos.get_id()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#admin_bases.Conexion"><code class="docutils literal notranslate"><span class="pre">Conexion</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#admin_bases.Conexion.conexion_bd"><code class="docutils literal notranslate"><span class="pre">Conexion.conexion_bd()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="excepciones.html">excepciones module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GestorMesas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">admin_bases module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/admin_bases.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-admin_bases">
+<span id="admin-bases-module"></span><h1>admin_bases module<a class="headerlink" href="#module-admin_bases" title="Link to this heading"></a></h1>
+<p>admin_bases.py</p>
+<blockquote>
+<div><p>Contiene todas las clases y métodos que crean y administran las bases de datos.</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">admin_bases.</span></span><span class="sig-name descname"><span class="pre">BaseClientes</span></span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#admin_bases.Conexion" title="admin_bases.Conexion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conexion</span></code></a></p>
+<p>La clase <em>BaseClientes()</em> cuenta con los métodos que brindan con las directrices necesarias
+para administrar la información de la tabla «clientes».</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.alta_sql">
+<span class="sig-name descname"><span class="pre">alta_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.alta_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.alta_sql" title="Link to this definition"></a></dt>
+<dd><p>Agrega un nuevo cliente en la tabla «clientes».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cliente</strong> – (_tuple_) datos proporcionados desde el módulo <em>modelo.py</em> para la alta del cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.borra_cliente_sql">
+<span class="sig-name descname"><span class="pre">borra_cliente_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.borra_cliente_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.borra_cliente_sql" title="Link to this definition"></a></dt>
+<dd><p>Borra al cliente seleccionado de la tabla «clientes».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>_int_</strong><strong>)</strong> (<em>id_cliente</em>) – id del cliente seleccionado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.borra_consumos_cliente_borrado_sql">
+<span class="sig-name descname"><span class="pre">borra_consumos_cliente_borrado_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.borra_consumos_cliente_borrado_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.borra_consumos_cliente_borrado_sql" title="Link to this definition"></a></dt>
+<dd><p>Borra de la tabla «consumos» los datos correspondientes al cliente borrado con el método <em>borra_cliente_sql()</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>(</strong><strong>_int_</strong><strong>)</strong> (<em>id_cliente</em>) – id del cliente seleccionado.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.cierra_sql">
+<span class="sig-name descname"><span class="pre">cierra_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.cierra_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.cierra_sql" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>estado</em> del cliente seleccionado en la tabla «clientes» y agrega horario de cierre
+al atributo <em>hora_egreso</em> del cliente seleccionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_cliente</strong> – (_int_) id de cliente.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.estado_mesa_sql">
+<span class="sig-name descname"><span class="pre">estado_mesa_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.estado_mesa_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.estado_mesa_sql" title="Link to this definition"></a></dt>
+<dd><p>Proporciona el atributo <em>estado</em> del cliente seleccionado.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_cliente</strong> – (_int_): id del cliente seleccionado</p>
+</dd>
+<dt class="field-even">Returns True<span class="colon">:</span></dt>
+<dd class="field-even"><p>(_boolean_) si la mesa del cliente seleccionado está «ABIERTA»</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Si el estado de la mesa del cliente seleccionado es «CERRADA», el método retorna
+una ventana de error.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.modifica_comensal_sql">
+<span class="sig-name descname"><span class="pre">modifica_comensal_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operacion</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.modifica_comensal_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.modifica_comensal_sql" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>n_comensales</em> del cliente seleccionado en la tabla «clientes».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_cliente</strong> – (_int_) ID del cliente seleccionado</p></li>
+<li><p><strong>operacion</strong> – (_str_) «suma» o «resta» según se vaya a agregar o quitar un comensal.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.modifica_mesa_sql">
+<span class="sig-name descname"><span class="pre">modifica_mesa_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nueva_mesa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.modifica_mesa_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.modifica_mesa_sql" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>n_mesa</em> del cliente seleccionado en la tabla «clientes».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nueva_mesa</strong> – (_int_): número de mesa proporcionado por el módulo <em>modelo.py</em>.</p></li>
+<li><p><strong>id_cliente</strong> – (_int_): ID del cliente seleccionado.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.muestra_clientes_sql">
+<span class="sig-name descname"><span class="pre">muestra_clientes_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">estado1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.muestra_clientes_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.muestra_clientes_sql" title="Link to this definition"></a></dt>
+<dd><p>Obtiene de la tabla «clientes» un listado de clientes para ser mostrado en el Tree de la ventana principal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>estado1</strong> – (_str_): «ABIERTO» o «TOTAL» según se muestren los clientes activos o todos los clientes.</p>
+</dd>
+<dt class="field-even">Returns clientes_abiertos o clientes_total<span class="colon">:</span></dt>
+<dd class="field-even"><p>(_list_) retorna el listado de clientes activos o la totalidad de los clientes dependiendo del parámetro brindado desde el módulo <em>modelo.py</em>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.selecc_para_entrys_sql">
+<span class="sig-name descname"><span class="pre">selecc_para_entrys_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.selecc_para_entrys_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.selecc_para_entrys_sql" title="Link to this definition"></a></dt>
+<dd><p>Obtiene y retorna de la tabla «clientes» los datos de un cliente requeridos para 
+presentar en los Entrys de la ventana secundaria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_cliente</strong> – (_int_) ID del cliente seleccionado.</p>
+</dd>
+<dt class="field-even">Returns clientes_actualiza<span class="colon">:</span></dt>
+<dd class="field-even"><p>(_list_) Listado de atributos del cliente seleccionado para mostrar en los Entrys de la ventana secundaria.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.selecc_tree_clientes_sql">
+<span class="sig-name descname"><span class="pre">selecc_tree_clientes_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.selecc_tree_clientes_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.selecc_tree_clientes_sql" title="Link to this definition"></a></dt>
+<dd><p>Obtiene y retorna de la tabla «clientes» los datos requeridos de un cliente para 
+presentar en el tree <em>listado</em> de la ventana principal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_cliente</strong> – (_int_) ID del clientte seleccionado.</p>
+</dd>
+<dt class="field-even">Returns cliente_seleccionado<span class="colon">:</span></dt>
+<dd class="field-even"><p>(_list_) listado de atributos del cliente seleccionado que serán presentados en el Tree de la ventana principal.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseClientes.selecc_tree_consumos_sql">
+<span class="sig-name descname"><span class="pre">selecc_tree_consumos_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseClientes.selecc_tree_consumos_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseClientes.selecc_tree_consumos_sql" title="Link to this definition"></a></dt>
+<dd><p>Obtiene y retorna de la tabla «clientes» los datos requeridos de un cliente para 
+presentar en el tree <em>listado_consumos</em> de la ventana secundaria.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id_cliente</strong> – (_int_) ID del clientte seleccionado.</p>
+</dd>
+<dt class="field-even">Returns cliente_seleccionado<span class="colon">:</span></dt>
+<dd class="field-even"><p>(_list_) listado de atributos del cliente seleccionado que serán presentados en el Tree de la ventana principal.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="admin_bases.BaseConsumos">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">admin_bases.</span></span><span class="sig-name descname"><span class="pre">BaseConsumos</span></span><a class="reference internal" href="_modules/admin_bases.html#BaseConsumos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseConsumos" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#admin_bases.Conexion" title="admin_bases.Conexion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conexion</span></code></a></p>
+<p>La clase <em>BaseConsumos()</em> cuenta con los métodos que brindan con las directrices necesarias 
+para administrar la información de la base de datos «consumos».</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseConsumos.alta_compra_sql">
+<span class="sig-name descname"><span class="pre">alta_compra_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">producto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseConsumos.alta_compra_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseConsumos.alta_compra_sql" title="Link to this definition"></a></dt>
+<dd><p>Agrega un pedido a la tabla «consumos» y lo asocia al cliente seleccionado mediante su ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_cliente</strong> – (_int_) ID del cliente seleccionado.</p></li>
+<li><p><strong>producto</strong> – (_str_) nombre del producto.</p></li>
+<li><p><strong>precio</strong> – (_float_) precio del producto.</p></li>
+<li><p><strong>root</strong> – (_root_)  objeto root de Tkinter.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseConsumos.baja_compra_sql">
+<span class="sig-name descname"><span class="pre">baja_compra_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_cliente</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">producto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseConsumos.baja_compra_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseConsumos.baja_compra_sql" title="Link to this definition"></a></dt>
+<dd><p>Borra un pedido a la tabla «consumos».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_cliente</strong> – (_int_) ID del cliente seleccionado.</p></li>
+<li><p><strong>producto</strong> – (_str_) nombre del producto.</p></li>
+<li><p><strong>precio</strong> – (_float_) precio del producto.</p></li>
+<li><p><strong>root</strong> – (_root_)  objeto root de Tkinter.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseConsumos.resta_total_sql">
+<span class="sig-name descname"><span class="pre">resta_total_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevo_precio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseConsumos.resta_total_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseConsumos.resta_total_sql" title="Link to this definition"></a></dt>
+<dd><p>Actualiza en la tabla «clientes» el atributo <em>total</em> del cliente seleccionado al borrar un pedido.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_client</strong> – (_int_) ID del cliente seleccionado.</p></li>
+<li><p><strong>nuevo_precio</strong> – (_float_) precio del pedido borrado.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root de Tkinter.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseConsumos.suma_total_sql">
+<span class="sig-name descname"><span class="pre">suma_total_sql</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id_client</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nuevo_precio</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseConsumos.suma_total_sql"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseConsumos.suma_total_sql" title="Link to this definition"></a></dt>
+<dd><p>Actualiza en la tabla «clientes» el atributo <em>total</em> del cliente seleccionado al agregar un pedido.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id_client</strong> – (_int_) ID del cliente seleccionado.</p></li>
+<li><p><strong>nuevo_precio</strong> – (_float_) precio del pedido agregado.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root de Tkinter.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">admin_bases.</span></span><span class="sig-name descname"><span class="pre">BaseDeDatos</span></span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#admin_bases.Conexion" title="admin_bases.Conexion"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conexion</span></code></a></p>
+<p>La clase <em>BaseDeDatos()</em> crea las tablas sqlite3 con las que trabajará la aplicación.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos.borra_ultimo_id">
+<span class="sig-name descname"><span class="pre">borra_ultimo_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos.borra_ultimo_id"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos.borra_ultimo_id" title="Link to this definition"></a></dt>
+<dd><p>Borra el último ingreso de la tabla «id_base».</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos.crea_tabla_clientes">
+<span class="sig-name descname"><span class="pre">crea_tabla_clientes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos.crea_tabla_clientes"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos.crea_tabla_clientes" title="Link to this definition"></a></dt>
+<dd><p>Crea la tabla «clientes».</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos.crea_tabla_consumos">
+<span class="sig-name descname"><span class="pre">crea_tabla_consumos</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos.crea_tabla_consumos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos.crea_tabla_consumos" title="Link to this definition"></a></dt>
+<dd><p>Crea la tabla «consumos».</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos.crea_tabla_id">
+<span class="sig-name descname"><span class="pre">crea_tabla_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos.crea_tabla_id"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos.crea_tabla_id" title="Link to this definition"></a></dt>
+<dd><p>Crea la tabla «id_base» que proporcionará los números de ID para la tabla «clientes».</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.BaseDeDatos.get_id">
+<span class="sig-name descname"><span class="pre">get_id</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#BaseDeDatos.get_id"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.BaseDeDatos.get_id" title="Link to this definition"></a></dt>
+<dd><p>Proporciona un número de ID autoincrementable, lo almacena en la tabla «id_base» y lo retorna para ser utilizado 
+como <em>PRIMARY KEY</em> en la tabla «clientes».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns id<span class="colon">:</span></dt>
+<dd class="field-odd"><p>(_int_) integer para ID de la tabla «clientes».</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="admin_bases.Conexion">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">admin_bases.</span></span><span class="sig-name descname"><span class="pre">Conexion</span></span><a class="reference internal" href="_modules/admin_bases.html#Conexion"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.Conexion" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La clase <em>Conexion()</em> crea y se conecta con la base de datos «clientes_sql.db».
+Todas las clases del módulo “admin_bases.py” heredan de la clase <em>Conexion()</em></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="admin_bases.Conexion.conexion_bd">
+<span class="sig-name descname"><span class="pre">conexion_bd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/admin_bases.html#Conexion.conexion_bd"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#admin_bases.Conexion.conexion_bd" title="Link to this definition"></a></dt>
+<dd><p>Genera la conexión sqlite3.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Devuelve<span class="colon">:</span></dt>
+<dd class="field-odd"><p>objeto <em>connect()</em> de sqlite3.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="modelo.html" class="btn btn-neutral float-left" title="modelo module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="excepciones.html" class="btn btn-neutral float-right" title="excepciones module" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, el_dami.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

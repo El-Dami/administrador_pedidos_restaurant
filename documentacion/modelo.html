@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="es" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>modelo module &mdash; documentación de GestorMesas - 0.0.1</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6fcc102b"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+        <script src="_static/translations.js?v=efdbd0b9"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="admin_bases module" href="admin_bases.html" />
+    <link rel="prev" title="vista module" href="vista.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            GestorMesas
+          </a>
+              <div class="version">
+                0.0.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Buscar documentos" aria-label="Buscar documentos" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="controlador.html">controlador module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vista.html">vista module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">modelo module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modelo.ClientesBD"><code class="docutils literal notranslate"><span class="pre">ClientesBD</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.agrega_comensal"><code class="docutils literal notranslate"><span class="pre">ClientesBD.agrega_comensal()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.alta_cliente"><code class="docutils literal notranslate"><span class="pre">ClientesBD.alta_cliente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.borra_cliente"><code class="docutils literal notranslate"><span class="pre">ClientesBD.borra_cliente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.cambia_mesa"><code class="docutils literal notranslate"><span class="pre">ClientesBD.cambia_mesa()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.cierra"><code class="docutils literal notranslate"><span class="pre">ClientesBD.cierra()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.consulta_cliente"><code class="docutils literal notranslate"><span class="pre">ClientesBD.consulta_cliente()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ClientesBD.quita_comensal"><code class="docutils literal notranslate"><span class="pre">ClientesBD.quita_comensal()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modelo.ConsumosBD"><code class="docutils literal notranslate"><span class="pre">ConsumosBD</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ConsumosBD.agrega_pedido"><code class="docutils literal notranslate"><span class="pre">ConsumosBD.agrega_pedido()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ConsumosBD.quita_pedido"><code class="docutils literal notranslate"><span class="pre">ConsumosBD.quita_pedido()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modelo.MuestraClientesBD"><code class="docutils literal notranslate"><span class="pre">MuestraClientesBD</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.MuestraClientesBD.muestra_clientes_activos"><code class="docutils literal notranslate"><span class="pre">MuestraClientesBD.muestra_clientes_activos()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.MuestraClientesBD.muestra_clientes_total"><code class="docutils literal notranslate"><span class="pre">MuestraClientesBD.muestra_clientes_total()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modelo.ProgramaAdmin"><code class="docutils literal notranslate"><span class="pre">ProgramaAdmin</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ProgramaAdmin.guardar"><code class="docutils literal notranslate"><span class="pre">ProgramaAdmin.guardar()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#modelo.ProgramaAdmin.salir_programa"><code class="docutils literal notranslate"><span class="pre">ProgramaAdmin.salir_programa()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="admin_bases.html">admin_bases module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="excepciones.html">excepciones module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regex.html">regex module</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">GestorMesas</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">modelo module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/modelo.rst.txt" rel="nofollow"> Ver código fuente de la página</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-modelo">
+<span id="modelo-module"></span><h1>modelo module<a class="headerlink" href="#module-modelo" title="Link to this heading"></a></h1>
+<p>modelo.py</p>
+<blockquote>
+<div><p>Cuenta con las clases y métodos que se ejecutan desde los <em>Botones</em> 
+de la interfaz gráfica.
+En el módulo <em>modelo.py</em> se ejecutan las clases y métodos de administración de la 
+Base de Datos (del módulo <em>admin_bases.py</em>), se realizan las validaciones 
+de campos (del módulo <em>regex.py</em>) y las capturas de excepciones (del módulo
+<em>excepciones.py</em>).</p>
+</div></blockquote>
+<dl class="py class">
+<dt class="sig sig-object py" id="modelo.ClientesBD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelo.</span></span><span class="sig-name descname"><span class="pre">ClientesBD</span></span><a class="reference internal" href="_modules/modelo.html#ClientesBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La Clase <em>ClientesBD()</em> cuenta con los métodos que vinculan la interfaz gráfica 
+con la tabla <em>clientes</em> de las base de datos <em>clientes_sql.db</em>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.agrega_comensal">
+<span class="sig-name descname"><span class="pre">agrega_comensal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.agrega_comensal"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.agrega_comensal" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>cantidad de comensales</em> del cliente seleccionado en la tabla
+<em>clientes</em> y lo muestra en los entrys y trees de la interfaz gráfica.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree2</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.alta_cliente">
+<span class="sig-name descname"><span class="pre">alta_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nro_mesa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cant_comensales</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.alta_cliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.alta_cliente" title="Link to this definition"></a></dt>
+<dd><p>Da de alta un cliente nuevo en la tabla <em>clientes</em> a partir 
+del ingreso obligatorio de los valores <em>mesa</em> y <em>comensales</em> de los
+respectivos Entry’s de la ventana principal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>nro_mesa</strong> – (_int_) número entero que se ingresa en el Entry <em>Mesa</em> de la vista principal.</p></li>
+<li><p><strong>cant_comensales</strong> – (_int_): número entero que se ingresa en el Entry <em>Comensales</em> de la vista principal.</p></li>
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter - tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.borra_cliente">
+<span class="sig-name descname"><span class="pre">borra_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_consumos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.borra_cliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.borra_cliente" title="Link to this definition"></a></dt>
+<dd><p>Borra al cliente seleccionado y sus consumos de las tablas <em>clientes</em> y <em>consumos</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree_consumos</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.cambia_mesa">
+<span class="sig-name descname"><span class="pre">cambia_mesa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">consul_mesa</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.cambia_mesa"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.cambia_mesa" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>cantidad de comensales</em> del cliente seleccionado en la tabla
+<em>clientes</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>consul_mesa</strong> – (_IntVar_) variable int de Tkinter ingresada en el Entry <em>Comensales</em> de la ventana secundaria.</p></li>
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree2</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.cierra">
+<span class="sig-name descname"><span class="pre">cierra</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.cierra"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.cierra" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>estado</em> del cliente seleccionado en la tabla <em>clientes</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter - tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Nota</p>
+<p>Una vez cerrada la mesa ya no se podrá borrar de la base de datos ni modificar ningún valor.</p>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.consulta_cliente">
+<span class="sig-name descname"><span class="pre">consulta_cliente</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_consumos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.consulta_cliente"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.consulta_cliente" title="Link to this definition"></a></dt>
+<dd><p>Muestra los datos del cliente seleccionado en la ventana secundaria <em>Consultas</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree_consumos</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ClientesBD.quita_comensal">
+<span class="sig-name descname"><span class="pre">quita_comensal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ClientesBD.quita_comensal"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ClientesBD.quita_comensal" title="Link to this definition"></a></dt>
+<dd><p>Modifica el atributo <em>cantidad de comensales</em> del cliente seleccionado en la tabla <em>clientes</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree2</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal()</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modelo.ConsumosBD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelo.</span></span><span class="sig-name descname"><span class="pre">ConsumosBD</span></span><a class="reference internal" href="_modules/modelo.html#ConsumosBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ConsumosBD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La Clase <em>ConsumossBD()</em> cuenta con los métodos que vinculan la interfaz gráfica 
+con la tabla <em>consumos</em> de la base de datos <em>clientes_sql.db</em> a partir del ingreso obligatorio de 
+los valores <em>producto</em> y <em>precio</em> de los respectivos Entry’s de la ventana principal</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ConsumosBD.agrega_pedido">
+<span class="sig-name descname"><span class="pre">agrega_pedido</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree_consumos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ConsumosBD.agrega_pedido"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ConsumosBD.agrega_pedido" title="Link to this definition"></a></dt>
+<dd><p>Agrega un pedido a la tabla <em>consumos</em> a partir de los datos ingresados en los Entry’s
+<em>producto</em> y <em>precio</em> de la ventana secundaria «Consultas».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree_consumos</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ConsumosBD.quita_pedido">
+<span class="sig-name descname"><span class="pre">quita_pedido</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tree_consumos</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ConsumosBD.quita_pedido"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ConsumosBD.quita_pedido" title="Link to this definition"></a></dt>
+<dd><p>Borra el pedido seleccionado del tree <em>listado_consumos</em> de la tabla <em>consumos</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree_consumos</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modelo.MuestraClientesBD">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelo.</span></span><span class="sig-name descname"><span class="pre">MuestraClientesBD</span></span><a class="reference internal" href="_modules/modelo.html#MuestraClientesBD"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.MuestraClientesBD" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>La clase <em>MuestraClientes()</em> presenta en el tree <em>listado</em> los clientes que se encuentran registrados en 
+la tabla <em>clienstes</em>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.MuestraClientesBD.muestra_clientes_activos">
+<span class="sig-name descname"><span class="pre">muestra_clientes_activos</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#MuestraClientesBD.muestra_clientes_activos"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.MuestraClientesBD.muestra_clientes_activos" title="Link to this definition"></a></dt>
+<dd><p>Muestra en el Tree de la página principal todos los clientes de la tabla <em>clientes</em> cuyo atributo <em>estado</em> sea «ABIERTO».</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree2</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.MuestraClientesBD.muestra_clientes_total">
+<span class="sig-name descname"><span class="pre">muestra_clientes_total</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tree2</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#MuestraClientesBD.muestra_clientes_total"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.MuestraClientesBD.muestra_clientes_total" title="Link to this definition"></a></dt>
+<dd><p>Muestra todos clientes de la tabla <em>clientes</em> en el Tree de la página principal.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tree</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>tree2</strong> – (_Tree_) objeto Tree de Tkinter _ tree <em>listado_consumos</em> de <em>VentanaPrincipal()</em> del módulo <em>vista.py</em>.</p></li>
+<li><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="modelo.ProgramaAdmin">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">modelo.</span></span><span class="sig-name descname"><span class="pre">ProgramaAdmin</span></span><a class="reference internal" href="_modules/modelo.html#ProgramaAdmin"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ProgramaAdmin" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Clase en construcción.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ProgramaAdmin.guardar">
+<span class="sig-name descname"><span class="pre">guardar</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ProgramaAdmin.guardar"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ProgramaAdmin.guardar" title="Link to this definition"></a></dt>
+<dd><p>Prueba de boton «Guardar»</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="modelo.ProgramaAdmin.salir_programa">
+<span class="sig-name descname"><span class="pre">salir_programa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">root</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/modelo.html#ProgramaAdmin.salir_programa"><span class="viewcode-link"><span class="pre">[fuente]</span></span></a><a class="headerlink" href="#modelo.ProgramaAdmin.salir_programa" title="Link to this definition"></a></dt>
+<dd><p>Salir del programa.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parámetros<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root</strong> – (_root_) objeto root Tkinter de VistaPrincipal().</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Pie de página">
+        <a href="vista.html" class="btn btn-neutral float-left" title="vista module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Anterior</a>
+        <a href="admin_bases.html" class="btn btn-neutral float-right" title="admin_bases module" accesskey="n" rel="next">Siguiente <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Derechos de autor 2024, el_dami.</p>
+  </div>
+
+  Compilado con <a href="https://www.sphinx-doc.org/">Sphinx</a> usando un
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">tema</a>
+    proporcionado por <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
